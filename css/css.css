@@ -42,7 +42,7 @@ input:focus
 #main
 {
 	width:1022px;
-	min-height:766px;
+	max-height:768px;
 	border:#000 1px solid;
 	margin:30px auto 10px auto;
 }
@@ -103,7 +103,7 @@ input:focus
 #mm
 {
 	padding:10px;
-	height:520px;
+	height:500px;
 	overflow:auto;
 }
 #bo
