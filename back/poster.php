@@ -25,10 +25,17 @@
                         data-sw="<?= ($idx != $max) ? $rows[$idx + 1]['id'] : $row['id'] ?>">
                 </td>
                 <td style="text-align:center;width:24.5%;">
-                    <input type="checkbox" name="sh[]" value="<?= $row['id'] ?>">顯示
+                    <input type="checkbox" name="sh[]" value="<?= $row['id'] ?>"
+                        <?= ($row['sh'] == 1) ? "checked" : "" ?>>顯示
                     <input type="checkbox" name="del[]" value="<?= $row['id'] ?>">刪除
+                    <select name="ani[]">
+                        <option value="1" <?= ($row['ani'] == 1) ? "selected" : "" ?>>淡入淡出</option>
+                        <option value="2" <?= ($row['ani'] == 2) ? "selected" : "" ?>>滑入滑出</option>
+                        <option value="3" <?= ($row['ani'] == 3) ? "selected" : "" ?>>縮放</option>
+                    </select>
                 </td>
             </tr>
+            <input type="hidden" name="id[]" value="<?= $row['id'] ?>">
             <?php
             }
             ?>
