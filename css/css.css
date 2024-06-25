@@ -11,7 +11,7 @@ select,select option
 }
 input[type='text'],input[type='file'],input[type='password'],textarea,.button
 {
-	width:200px;
+	width:300px;
 	font-size:16px;
 	padding:7px 5px 7px 5px;
 	background:#4C4C4C;
