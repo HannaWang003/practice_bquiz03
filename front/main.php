@@ -2,12 +2,12 @@
     .lists {
         width: 200px;
         height: 240px;
-        overflow: hidden;
         margin: auto;
+        overflow: hidden;
+        position: relative;
     }
 
     .item {
-        box-sizing: border-box;
         width: 200px;
         height: 240px;
         margin: auto;
@@ -25,12 +25,12 @@
     .controls {
         width: 420px;
         height: 100px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin: auto;
         margin-top: 10px;
         position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
     }
 
     .left,
@@ -75,11 +75,9 @@ $posters = $Poster->all(['sh' => 1], "order by rank");
 <div class="half" style="vertical-align:top;">
     <h1 class="ct">預告片介紹</h1>
     <div class="rb tab" style="width:95%;">
-        <!-- 海報區 -->
         <div class="lists">
-            <!-- 單一海報區 -->
             <?php
-            foreach ($posters as $idx => $poster) {
+            foreach ($posters as $poster) {
             ?>
                 <div class="item" data-ani="<?= $poster['ani'] ?>">
                     <div><img src="./img/<?= $poster['img'] ?>" alt=""></div>
@@ -89,15 +87,11 @@ $posters = $Poster->all(['sh' => 1], "order by rank");
             }
             ?>
         </div>
-        <!-- 按鈕區 -->
         <div class="controls">
-            <!-- 向左按鈕 -->
             <div class="left"></div>
-            <!-- 海報按鈕區 -->
             <div class="btns">
-                <!-- 單一海報 -->
                 <?php
-                foreach ($posters as $idx => $poster) {
+                foreach ($posters as $poster) {
                 ?>
                     <div class="btn">
                         <div><img src="./img/<?= $poster['img'] ?>" alt=""></div>
@@ -107,7 +101,6 @@ $posters = $Poster->all(['sh' => 1], "order by rank");
                 }
                 ?>
             </div>
-            <!-- 向右按鈕 -->
             <div class="right"></div>
         </div>
     </div>
@@ -128,13 +121,14 @@ $posters = $Poster->all(['sh' => 1], "order by rank");
     let next = 0;
     let total = $('.item').length;
     let timer = setInterval(slide, 3000);
+    let p = 0;
 
     function slide(n) {
         let ani = $('.item').eq(now).data('ani');
         if (typeof(n) == "undefined") {
-            next = now + 1;
+            next = now + 1
             if (next >= total) {
-                next = 0
+                next = 0;
             }
         } else {
             next = n;
@@ -142,20 +136,47 @@ $posters = $Poster->all(['sh' => 1], "order by rank");
         switch (ani) {
             case 1:
                 $('.item').eq(now).fadeOut(1000, () => {
-                    $('.item').eq(next).fadeIn(1000);
+                    $('.item').eq(next).fadeIn(1000)
                 })
                 break;
             case 2:
-                $('.item').eq(now).slideUp(1000, () => {
-                    $('.item').eq(next).slideDown(1000);
+                $('.item').eq(now).hide(1000, () => {
+                    $('.item').eq(next).show(1000)
                 })
                 break;
             case 3:
-                $('.item').eq(now).hide(1000, () => {
-                    $('.item').eq(next).show(1000);
+                $('.item').eq(now).slideUp(1000, () => {
+                    $('.item').eq(next).slideDown(1000)
                 })
                 break;
         }
         now = next;
     }
+    $('.left,.right').on("click", function() {
+        let arrow = $(this).attr('class');
+        switch (arrow) {
+            case "left":
+                if (p - 1 >= 0) {
+                    p--
+                }
+                break;
+            case "right":
+                if (p + 1 <= total - 4) {
+                    p++
+                }
+                break;
+        }
+        $('.btn').animate({
+            right: 90 * p
+        });
+    })
+    $('.btn').hover(function() {
+        clearInterval(timer);
+    }, function() {
+        timer = setInterval(slide, 3000)
+    })
+    $('.btn').on('click', function() {
+        let idx = $(this).index();
+        slide(idx);
+    })
 </script>
