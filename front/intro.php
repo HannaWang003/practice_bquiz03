@@ -3,17 +3,21 @@ $movie = $Movie->find($_GET['id']);
 ?>
 <div class="tab rb" style="width:87%;">
     <div style="background:#FFF; width:100%; color:#333; text-align:left">
-        <video src="./img/<?= $movie['trailer'] ?>" width="300px" height="250px" controls="" style="float:right;"></video>
+        <video src="./img/<?= $movie['trailer'] ?>" width="300px" height="250px" controls=""
+            style="float:right;"></video>
         <font style="font-size:20px">
             <div style="display:flex;">
                 <div>
-                    <img src="./img/<?= $movie['poster'] ?>" width="200px" height="250px" style="margin:10px; float:left">
+                    <img src="./img/<?= $movie['poster'] ?>" width="200px" height="250px"
+                        style="margin:10px; float:left">
                 </div>
                 <div>
                     <p style="margin:3px">影片名稱 ：<?= $movie['name'] ?>
-                        <input type="button" value="線上訂票" onclick="location.href='?do=ord&id=<?= $movie['id'] ?>'" style="margin-left:50px; padding:2px 4px" class="b2_btu">
+                        <input type="button" value="線上訂票" onclick="location.href='?do=order&id=<?= $movie['id'] ?>'"
+                            style="margin-left:50px; padding:2px 4px" class="b2_btu">
                     </p>
-                    <p style="margin:3px">影片分級 ： <img src="./icon/03C0<?= $movie['level'] ?>.png" style="display:inline-block;">
+                    <p style="margin:3px">影片分級 ： <img src="./icon/03C0<?= $movie['level'] ?>.png"
+                            style="display:inline-block;">
                         <?php
                         switch ($movie['level']) {
                             case "1":
