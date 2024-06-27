@@ -1,8 +1,8 @@
 <h3 class="ct">訂單清單</h3>
-<form action="./api/del_order.php" metod="post">
+<form action="./api/del_order.php" method="post">
     <div>
         快速刪除:
-        <input type="radio" name="type" value="date">依日期 <input type="text" name="date">
+        <input type="radio" name="type" value="date" checked>依日期 <input type="text" name="date">
         <input type="radio" name="type" value="movie">依電影
         <select name="movie">
             <?php
@@ -17,6 +17,7 @@
         <input type="submit" value="刪除">
     </div>
 </form>
+<br>
 <style>
 table {
     border-collapse: collapse;
