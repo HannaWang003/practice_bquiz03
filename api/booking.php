@@ -107,4 +107,16 @@ $('.chk').on('change', function() {
     }
     $('#tickets').text(seats.length);
 })
+
+function checkout() {
+    $.post('../api/checkout.php', {
+        movie: '<?= $movieName; ?>',
+        date: '<?= $date; ?>',
+        session: '<?= $session; ?>',
+        qt: seats.length,
+        seats
+    }, (no) => {
+        location.href = `?do=result&no=${no}`
+    })
+}
 </script>

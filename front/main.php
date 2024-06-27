@@ -104,17 +104,6 @@ $posters = $Poster->all(['sh' => 1], "order by rank");
         </div>
     </div>
 </div>
-<div class="half">
-    <h1>院線片清單</h1>
-    <div class="rb tab" style="width:95%;">
-        <table>
-            <tbody>
-                <tr> </tr>
-            </tbody>
-        </table>
-        <div class="ct"> </div>
-    </div>
-</div>
 <script>
     let p = 0;
     let now = 0;
@@ -179,3 +168,64 @@ $posters = $Poster->all(['sh' => 1], "order by rank");
         slide(idx);
     })
 </script>
+<style>
+    .movies {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .movie {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin: 0.5%;
+        padding: 2%;
+        width: 49%;
+
+    }
+</style>
+<div class="half">
+    <h1>院線片清單</h1>
+    <div class="rb tab" style="width:95%;">
+        <div class="movies">
+            <?php
+            $ondate = date("Y-m-d", strtotime("-2 days"));
+            $today = date("Y-m-d");
+            $div = 4;
+            $total = $Movie->count("where `sh`=1 && `ondate` between '$ondate' and '$today'");
+            $pages = ceil($total / $div);
+            $now = ($_GET['p']) ?? 1;
+            $start = ($now - 1) * $div;
+            $movies = $Movie->all("where `sh`=1 && `ondate` between '$ondate' and '$today'", "order by rank limit $start,$div");
+            foreach ($movies as $movie) {
+
+            ?>
+                <div class="movie">
+                    <div style="width:33%"><img src="./img/<?= $movie['poster'] ?>" style="width:100%;border:3px solid #ccc"></div>
+                    <div style="width:63%">
+                        <div><?= $movie['name'] ?></div>
+                        <div style="font-size:13px">分級: <img src="./icon/03C0<?= $movie['level'] ?>.png" style="width:25px;"></div>
+                        <div style="font-size:13px">上映日期: <?= $movie['ondate'] ?></div>
+                    </div>
+                    <div style="width:100%;margin:10px auto;"><button onclick="location.href='?do=intro&id=<?= $movie['id'] ?>'">劇情簡介</button> <button onclick="location.href='?do=order&id=<?= $movie['id'] ?>'">線上訂票</button></div>
+                </div>
+            <?php
+            }
+            ?>
+        </div>
+        <br>
+        <div class="ct">
+            <?php
+            for ($i = 1; $i <= $pages; $i++) {
+                $style = ($i == $now) ? "font-size:20px" : "";
+            ?>
+                <a href="?do=main&p=<?= $i ?>" style="color:#ccc;text-decoration:none;<?= $style ?>"><?= $i ?></a>
+            <?php
+            }
+            ?>
+        </div>
+    </div>
+</div>
