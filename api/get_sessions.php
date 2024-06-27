@@ -6,9 +6,9 @@ $movieName = $Movie->find($movie)['name'];
 $H = date("G");
 $start = ($H >= 14 && $date == date("Y-m-d")) ? 7 - ceil((24 - $H) / 2) : 1;
 for ($i = $start; $i <= 5; $i++) {
-    $qt = $Order->find(['date' => $date, 'movie' => $movieName, 'session' => $sess[$i]]);
+    $qt = $Order->sum('qt', ['date' => $date, 'movie' => $movieName, 'session' => $sess[$i]]);
     $lave = 20 - $qt;
 ?>
-    <option value="<?= $sess[$i] ?>"><?= $sess[$i] ?>&nbsp;剩餘<?= $lave ?>位</option>
+    <option value="<?= $sess[$i] ?>"><?= $sess[$i] ?> 剩餘<?= $lave ?>位</option>
 <?php
 }
