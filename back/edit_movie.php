@@ -5,15 +5,15 @@ $month = explode("-", $row['ondate'])[1];
 $day = explode("-", $row['ondate'])[2];
 ?>
 <style>
-.form td:nth-child(1) {
-    width: 20%;
-    text-align-last: justify;
-    padding: 3px;
-}
+    .form td:nth-child(1) {
+        width: 20%;
+        text-align-last: justify;
+        padding: 3px;
+    }
 
-.ra {
-    background: #999;
-}
+    .ra {
+        background: #999;
+    }
 </style>
 <h3 class="ct">編輯院線片</h3>
 <form action="./api/edit_movie.php" method="post" enctype="multipart/form-data">
